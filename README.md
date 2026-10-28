@@ -23,6 +23,15 @@ Wazuh + Elastic Stack is the best fit for beginners because it is:
 - rich in endpoint, authentication, and process telemetry
 - suitable for training detections, hunting, and IR workflows
 
+## Quick start
+
+To get the lab environment running immediately, follow the setup guides below:
+
+- `docs/wazuh-elastic-setup.md` — install the SIEM platform on Ubuntu
+- `docs/agent-onboarding.md` — enroll Windows and Linux agents
+- `docs/lab-architecture.md` — review the lab topology
+- `docs/lab-exercises.md` — start practicing analyst workflows
+
 ## Recommended environment
 
 - 1 SIEM server running Wazuh + Elasticsearch + Kibana
@@ -73,16 +82,6 @@ By the end of this lab, a junior analyst should be able to:
 - Account lockouts and password spray activity
 - Suspicious scheduled task creation
 - Privilege escalation indicator review
-
-## Quick start
-
-Read through the setup and architecture docs before deploying the lab.
-
-1. Review `docs/lab-architecture.md`
-2. Follow the steps in `docs/environment-setup.md`
-3. Deploy the endpoint clients
-4. Run the first lab in `labs/01-bruteforce-login/`
-5. Investigate the process execution lab in `labs/02-powershell-execution/`
 
 ## Tools covered
 
