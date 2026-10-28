@@ -10,7 +10,7 @@ logsource:
 detection:
   selection:
     process_name: sshd
-    event_id:  invalid_user
+    event_id: invalid_user
   condition: selection
 falsepositives:
   - legitimate password mistakes

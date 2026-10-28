@@ -1,83 +1,99 @@
 # Junior SOC Analyst Lab
 
-A beginner-friendly Security Operations Center (SOC) lab built around Wazuh + Elastic Stack (OpenSearch/ELK alternatives are also possible), designed to teach junior analysts the core skills of log analysis, alert triage, and incident response.
+This repository is a beginner-focused Security Operations Center (SOC) lab built for junior analysts learning how to work with a real SOC stack using Wazuh + Elastic Stack (ELK).
 
-## Why this stack?
+## Lab purpose
 
-Wazuh + Elastic Stack is the best starting point for junior analysts because it combines:
+The lab teaches the real-world analyst workflow:
 
-- Endpoint monitoring
-- Log collection
-- Alerting and rules
-- Search and investigation workflows
-- Realistic SOC tooling without enterprise licensing overhead
+- collect logs from endpoints and servers
+- identify suspicious behavior
+- triage alerts
+- investigate the timeline of activity
+- validate and tune detections
+- document an investigation and escalate when needed
 
-This lab emphasizes practical analyst skills over pure tooling complexity.
+## Best stack for junior analysts
 
-## Lab goals
+Wazuh + Elastic Stack is the best fit for beginners because it is:
 
-By the end of the lab, a junior SOC analyst should be able to:
+- open source and cost-effective
+- realistic for SOC operations
+- easy to learn with a small lab environment
+- rich in endpoint, authentication, and process telemetry
+- suitable for training detections, hunting, and IR workflows
 
-- Collect logs from Windows and Linux endpoints
-- Investigate failed login attempts and suspicious user activity
-- Review endpoint events and process execution
-- Create and tune detection rules
-- Triage alerts and document findings
-- Practice basic incident response steps
+## Recommended environment
 
-## Recommended lab topology
+- 1 SIEM server running Wazuh + Elasticsearch + Kibana
+- 1 Windows endpoint running Sysmon + Microsoft Defender
+- 1 Linux server generating SSH, auth, and web logs
+- 1 Kali or attacker VM for lab simulations
 
-- 1 Linux VM: Wazuh Manager + Elastic Stack
-- 1 Windows VM: endpoint telemetry with Sysmon + Defender
-- 1 Linux server: SSH, web logs, and sudo activity
-- 1 Kali VM: attack simulation
+## Learning objectives
 
-## Core learning scenarios
+By the end of this lab, a junior analyst should be able to:
 
-1. Failed login brute force
-2. Unusual PowerShell execution
-3. New scheduled task or service creation
-4. Lateral movement indicators
-5. Privilege escalation attempts
-6. Suspicious file execution from user-writable paths
+- understand common SOC data sources
+- investigate failed logins and suspicious PowerShell execution
+- review endpoint and authentication telemetry
+- identify persistence and privilege escalation indicators
+- triage alerts with context
+- produce concise investigation notes and escalation summaries
 
-## Repository layout
+## Repository structure
 
-- `docs/` – architecture, setup, and learning plans
-- `detections/` – Sigma rules and rule examples
-- `playbooks/` – investigation and triage workflows
-- `labs/` – hands-on exercises and scenarios
-- `scripts/` – automation and helper tools
-- `logs/` – sample data and parsers
+- `docs/` — environment architecture and setup guides
+- `detections/` — Sigma rules and detection examples
+- `labs/` — beginner exercises and investigations
+- `playbooks/` — triage and response workflows
+- `scripts/` — log generation and sample data helpers
+
+## Suggested lab flow
+
+1. Set up the SIEM environment
+2. Deploy the Windows and Linux endpoints
+3. Enable Sysmon and logging on endpoints
+4. Investigate the first brute-force exercise
+5. Review suspicious process activity
+6. Tune rules and build a timeline
+7. Escalate findings with a documented summary
+
+## Recommended training path
+
+- Week 1: Log review, alert triage, authentication events
+- Week 2: PowerShell, process execution, and endpoint behaviors
+- Week 3: Persistence, scheduled tasks, and privilege abuse
+- Week 4: Threat hunting and incident response playbooks
+
+## Example use cases
+
+- SSH brute force attempts
+- PowerShell encoding for malicious execution
+- Account lockouts and password spray activity
+- Suspicious scheduled task creation
+- Privilege escalation indicator review
 
 ## Quick start
 
+Read through the setup and architecture docs before deploying the lab.
+
 1. Review `docs/lab-architecture.md`
-2. Deploy the VM topology
-3. Install Wazuh + Elastic Stack
-4. Configure Windows/Linux agents
-5. Start with the first lab in `labs/01-bruteforce-login/`
-6. Investigate events and tune detections
+2. Follow the steps in `docs/environment-setup.md`
+3. Deploy the endpoint clients
+4. Run the first lab in `labs/01-bruteforce-login/`
+5. Investigate the process execution lab in `labs/02-powershell-execution/`
 
-## Suggested learning path
-
-- Week 1: Log review and alert triage
-- Week 2: Endpoint and authentication events
-- Week 3: Persistence and privilege escalation
-- Week 4: IOC hunting and incident response
-
-## Recommended tools
+## Tools covered
 
 - Wazuh
-- Elastic Stack / OpenSearch
+- Elasticsearch
+- Kibana
 - Sysmon
-- Atomic Red Team
+- Windows Event Logs
+- Linux authentication logs
 - Sigma
-- Windows Event Forwarding / WinRM
-
-## Notes
-
-This repository is intentionally starter-focused. It is designed to help beginners learn the SOC mindset: detect, validate, investigate, and document.
+- Atomic Red Team (optional)
 
 ## License
 

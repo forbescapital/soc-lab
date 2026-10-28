@@ -1,100 +1,103 @@
 # Junior SOC Lab Architecture
 
-This document describes the lab architecture for a beginner SOC analyst environment using Wazuh + Elastic Stack.
+This document explains the beginner SOC environment used in this repository.
 
-## Lab purpose
+## Goal
 
-The lab is designed to teach junior analysts how to:
+Build a small but realistic SOC lab that teaches junior analysts the core functions of a modern security operations team.
 
-- ingest logs from servers and endpoints
-- identify suspicious behavior
-- investigate the timeline of activity
-- build detections and playbooks
-- document security findings
+## Lab topology
 
-## Topology
+### 1. SIEM / Monitoring Platform
 
-### Tier 1: SIEM / Detection Platform
-
-- OS: Ubuntu 22.04+
+- Host: Ubuntu 22.04+
 - Components:
-  - Wazuh manager
-  - Elastic Stack (Elasticsearch + Kibana)
-  - Filebeat or Wazuh agent forwarding
-- Responsibilities:
-  - collect logs
-  - correlate alerts
-  - search for suspicious events
-  - document detections
+  - Wazuh Manager
+  - Elasticsearch
+  - Kibana
+  - Filebeat or Wazuh agent collection
+- Purpose:
+  - collect logs from endpoints and servers
+  - correlate alerts and detections
+  - support search, triage, and investigation
 
-### Tier 2: Windows Endpoint
+### 2. Windows Endpoint
 
-- OS: Windows 10 or Windows Server 2019/2022
+- Host: Windows 10/11 or Server 2019/2022
 - Components:
   - Sysmon
-  - Windows Defender
+  - Windows Security logs
   - PowerShell logging
+  - Microsoft Defender
   - Wazuh agent
-- Responsibilities:
-  - generate endpoint telemetry
-  - simulate execution and persistence activity
+- Purpose:
+  - generate process execution events
+  - show suspicious PowerShell, parent-child process chains, and service activity
 
-### Tier 3: Linux Server
+### 3. Linux Server
 
-- OS: Ubuntu 22.04+
+- Host: Ubuntu 22.04+
 - Components:
-  - SSH logs
+  - SSH daemon logs
+  - auth.log and syslog
   - sudo logs
-  - auth logs
   - nginx or apache access logs
   - Wazuh agent
-- Responsibilities:
-  - simulate privilege escalation and access abuse
+- Purpose:
+  - simulate failed logins and account abuse
+  - generate realistic authentication and system activity
 
-### Tier 4: Attack Simulation Host
+### 4. Red Team / Attack VM
 
-- OS: Kali Linux or another red-team VM
-- Responsibilities:
-  - run attack scenarios
-  - validate detections
-  - test analyst response
+- Host: Kali Linux or another attacker VM
+- Purpose:
+  - brute-force credentials
+  - run suspicious PowerShell commands
+  - validate detections and false positives
 
-## Example network layout
+## Example network
 
-- `10.0.0.10` – Wazuh Manager / SIEM
-- `10.0.0.20` – Windows endpoint
-- `10.0.0.30` – Linux web server
-- `10.0.0.40` – Kali attack box
+- 10.0.0.10 — SIEM server
+- 10.0.0.20 — Windows endpoint
+- 10.0.0.30 — Linux server
+- 10.0.0.40 — Attack box
 
-## Typical event sources
+## Event sources
 
-- Authentication logs
-- Process creation records
-- PowerShell command logs
-- Scheduled task creation
-- Service creation
-- Windows Sysmon event IDs
-- Web server access logs
-- Sudo and user activity
+- Windows Security Event Log
+- Sysmon process events
+- PowerShell operational logs
+- Linux authentication logs
+- SSH failed login attempts
+- sudo usage logs
+- web server access logs
+- scheduled task and service creation logs
 
-## Detection focus areas
+## Alert categories
 
 - brute force activity
-- suspicious PowerShell
-- user account changes
-- software execution from temporary paths
-- unusual scheduled tasks
-- privilege escalation behavior
+- suspicious process execution
+- unusual PowerShell execution
+- persistence via registry, service, or scheduled task
+- privilege escalation paths
+- suspicious login patterns
 
-## Analyst workflow
+## Typical analyst workflow
 
-1. Receive alert
-2. Validate event quality
-3. Investigate user, host, and time context
-4. Review process and network activity
-5. Determine if malicious or benign
-6. Escalate and document evidence
+1. Receive an alert
+2. Validate the impacted host and user
+3. Inspect the time window and attacker source
+4. Review relevant logs and endpoint events
+5. Determine whether the activity is malicious
+6. Escalate or document the findings
 
-## Suggested first lab
+## Suggested first exercises
 
-Start with a failed login brute force investigation. This gives junior analysts a simple pattern and teaches alert triage quickly.
+- repeated failed SSH attempts
+- suspicious encoded PowerShell execution
+- suspicious service creation on Windows
+- repeated authentication attempts against a privileged account
+
+## Recommended learning outcome
+
+A junior analyst should be comfortable with triage, evidence review, alert validation, and basis-level incident response without needing advanced offensive security knowledge.

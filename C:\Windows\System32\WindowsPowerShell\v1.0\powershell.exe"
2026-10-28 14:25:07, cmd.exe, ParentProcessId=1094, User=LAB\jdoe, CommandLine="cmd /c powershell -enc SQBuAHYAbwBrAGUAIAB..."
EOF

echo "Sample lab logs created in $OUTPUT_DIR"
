@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# generate-sample-logs.sh
+# Creates sample SSH and PowerShell activity logs for the junior SOC analyst lab.
+
+set -e
+
+OUTPUT_DIR="${1:-./logs/sample-data}"
+mkdir -p "$OUTPUT_DIR"
+
+cat > "$OUTPUT_DIR/ssh-auth.log" <<'EOF'
+Oct 28 14:10:01 server sshd[1234]: Invalid user admin from 203.0.113.44 port 54012 ssh2
+Oct 28 14:10:02 server sshd[1235]: Invalid user admin from 203.0.113.44 port 54013 ssh2
+Oct 28 14:10:05 server sshd[1236]: Invalid user admin from 203.0.113.44 port 54014 ssh2
+Oct 28 14:10:11 server sshd[1237]: Failed password for invalid user admin from 203.0.113.44 port 54012 ssh2
+Oct 28 14:11:08 server sshd[1238]: Failed password for invalid user root from 203.0.113.44 port 54014 ssh2
+Oct 28 14:12:10 server sshd[1239]: Failed password for invalid user postgres from 203.0.113.44 port 54015 ssh2
+Oct 28 14:13:00 server sshd[1240]: Failed password for invalid user svc-admin from 203.0.113.44 port 54016 ssh2
+EOF
+
+cat > "$OUTPUT_DIR/powershell-events.log" <<'EOF'
+2026-10-28 14:25:03, powershell.exe, ParentProcessId=1112, User=LAB\jdoe, CommandLine="powershell -enc SQBuAHYAbwBrAGUAIAB...

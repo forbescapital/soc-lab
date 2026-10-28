@@ -1,0 +1,17 @@
+title: windows_service_creation
+id: 87bb8b4f-0ae8-4fbd-a230-2a0d1791087a
+status: experimental
+description: Detects service creation on Windows as a common persistence technique.
+author: Security Lab
+date: 2026-10-28
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4697
+  condition: selection
+falsepositives:
+  - legitimate software installation
+  - approved system management tools
+level: medium
