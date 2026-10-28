@@ -1,0 +1,18 @@
+title: failed_password_bruteforce
+id: 2bc0a1d0-7d19-4d9f-9b91-a5b2d1c15ec3
+status: experimental
+description: Detects repeated failed authentication attempts consistent with brute force activity.
+author: Security Lab
+date: 2026-10-28
+logsource:
+  product: linux
+  service: sshd
+detection:
+  selection:
+    process_name: sshd
+    event_id:  invalid_user
+  condition: selection
+falsepositives:
+  - legitimate password mistakes
+  - users mistyping credentials repeatedly
+level: medium
